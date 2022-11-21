@@ -6,7 +6,7 @@
 loadrt [KINS]KINEMATICS
 loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[KINS]JOINTS
 loadrt hostmot2
-loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=1 num_pwmgens=0 num_stepgens=3 sserial_port_0=0xxxxx" 
+loadrt hm2_eth board_ip="192.168.1.121" config="num_encoders=5 num_pwmgens=0 num_stepgens=3 sserial_port_0=0xxxxx" 
 setp    [HMOT](CARD0).watchdog.timeout_ns 5000000
 loadrt pid names=pid.x,pid.z,pid.s
 
@@ -20,7 +20,23 @@ addf [HMOT](CARD0).write         servo-thread
 setp [HMOT](CARD0).dpll.01.timer-us -50
 setp [HMOT](CARD0).stepgen.timer-number 1
 
-# external output signals
+# P1 output signals
+
+setp [HMOT](CARD0).gpio.041.is_output true #M1
+setp [HMOT](CARD0).gpio.042.is_output true #M2
+setp [HMOT](CARD0).gpio.043.is_output true #M3
+setp [HMOT](CARD0).gpio.044.is_output true #M4
+setp [HMOT](CARD0).gpio.045.is_output true #M5
+setp [HMOT](CARD0).gpio.046.is_output true #XZ Ena
+
+
+setp [HMOT](CARD0).gpio.041.invert_output true #M1 off when booting
+setp [HMOT](CARD0).gpio.042.invert_output true #M2 off when booting
+setp [HMOT](CARD0).gpio.043.invert_output true #M3 off when booting
+setp [HMOT](CARD0).gpio.044.invert_output true #M4 off when booting
+setp [HMOT](CARD0).gpio.045.invert_output true #M5 off when booting
+setp [HMOT](CARD0).gpio.046.invert_output true #XZ Ena off when booting
+
 
 
 # external input signals
@@ -106,7 +122,7 @@ net z-output        <=  pid.z.output
 
 # Step Gen signals/setup
 
-setp   [HMOT](CARD0).stepgen.01.dirsetup        [JOINT_1]DIRSETUP
+setp   [HMOT](CARD0).stepgen.01.dirsetup      [JOINT_1]DIRSETUP
 setp   [HMOT](CARD0).stepgen.01.dirhold         [JOINT_1]DIRHOLD
 setp   [HMOT](CARD0).stepgen.01.steplen         [JOINT_1]STEPLEN
 setp   [HMOT](CARD0).stepgen.01.stepspace       [JOINT_1]STEPSPACE
@@ -148,7 +164,7 @@ setp   pid.s.maxoutput [SPINDLE_0]MAX_OUTPUT
 setp   pid.s.error-previous-target true
 
 net spindle-index-enable  <=> pid.s.index-enable
-net spindle-enable        =>  pid.s.enable
+net spindle-enable        =>  pid.s.enable 
 net spindle-vel-cmd-rpm     => pid.s.command
 net spindle-vel-fb-rpm      => pid.s.feedback
 net spindle-output        <=  pid.s.output
@@ -167,6 +183,8 @@ net spindle-revs               =>  spindle.0.revs
 net spindle-at-speed           =>  spindle.0.at-speed
 net spindle-vel-fb-rps         =>  spindle.0.speed-in
 net spindle-index-enable      <=>  spindle.0.index-enable
+
+
 
 # ---Setup spindle at speed signals---
 
@@ -209,12 +227,14 @@ net probe-in     =>  motion.probe-input
 
 # ---jogwheel signals to mesa encoder - x axis MPG---
 
-net x-jog-count          <=  [HMOT](CARD0).encoder.00.count
+net x-jog-count          <=  [HMOT](CARD0).inmux.00.enc0-count
+net z-jog-count          <=  [HMOT](CARD0).inmux.00.enc1-count
 
 #  ---motion control signals---
 
 net in-position               <=  motion.in-position
 net machine-is-enabled        <=  motion.motion-enabled
+net machine-is-enabled => [HMOT](CARD0).gpio.046.out [HMOT](CARD0).gpio.041.out #turn on XZ Servos & Spindle when motion is enabled
 
 #  ---digital in / out signals---
 
