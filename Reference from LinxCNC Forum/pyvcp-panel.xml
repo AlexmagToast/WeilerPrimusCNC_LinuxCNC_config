@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pyvcp>
+         <vbox>
+             		<relief>RIDGE</relief>         
+		 	<bd>6</bd>
+		        <label>
+		                <text>"Spindle Speed:"</text>
+		                <font>("Helvetica",20)</font>
+		        </label>
+		        <bar>
+		                <halpin>"spindle-speed"</halpin>
+		                <max_>3000</max_>
+		        </bar>
+		        <label>
+		                <text>"Spindle-At-Speed:"</text>
+		                <font>("Helvetica",20)</font>
+		        </label>
+                <hbox>
+                    	<label>
+                            	<text>"             "</text>
+                            	<font>("Helvetica",20)</font>
+                   	</label>
+                    	<led>
+                        	<halpin>"spindle-at-speed-led"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+                </hbox>
+		<hbox>
+		 	<button>
+				<halpin>"turn-turret"</halpin>
+				<text>"turn-turret"</text>
+			</button>
+                 	
+			<checkbutton>
+				<halpin>"lube"</halpin>
+				<text>"lube"</text>
+			</checkbutton>
+		</hbox>
+                                <hbox>
+                    	<label>
+                            	<text>"oil tank "</text>
+                            	<font>("Helvetica",14)</font>
+                   	</label>
+                    	<led>
+                        	<halpin>"oiltank"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+			<label>
+                            	<text>"lube-on"</text>
+                            	<font>("Helvetica",14)</font>
+                   	</label>
+			 <led>
+				<halpin>"lube-led"</halpin>
+				<on_color>"green"</on_color>
+				<size>30</size>
+				
+			</led>	
+                </hbox>
+		
+		<hbox>
+                    	<label>
+                            	<text>"T1"</text>
+                            	<font>("Helvetica",20)</font>
+                   	</label>
+                    	<led>
+                        	<halpin>"pos1"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+                    	<label>
+                            	<text>"T2"</text>
+                            	<font>("Helvetica",20)</font>
+                   	</label>
+                    	<led>
+                        	<halpin>"pos2"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+                    	<label>
+                            	<text>"T3"</text>
+                            	<font>("Helvetica",20)</font>
+                   	</label>                    	
+			<led>
+                        	<halpin>"pos3"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+                    	<label>
+                            	<text>"T4"</text>
+                            	<font>("Helvetica",20)</font>
+                   	</label>                    	
+			<led>
+                        	<halpin>"pos4"</halpin> 
+                        	<size>30</size> 
+                        	<on_color>"green"</on_color>
+                        	<off_color>"red"</off_color>
+                    	</led>
+
+		</hbox>
+        </vbox>
+		
+</pyvcp>

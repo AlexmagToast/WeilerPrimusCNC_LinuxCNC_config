@@ -1,0 +1,19 @@
+# _DO NOT_ include your HAL commands here.
+# Put custom HAL commands in custom_postgui.hal
+# The commands in this file are run after the GUI loads
+
+# **** Setup of spindle speed display using pyvcp -START ****
+
+net spindle-vel-cmd         =>    pyvcp.spindle-speed
+net spindle-at-speed        =>    pyvcp.spindle-at-speed-led
+
+# **** Setup of spindle speed display using pyvcp -END ****
+
+net jog-turret   <=   pyvcp.turn-turret  
+net lube         <=    pyvcp.lube
+net lube-led    =>     pyvcp.lube-led
+net pos1 	<=     pyvcp.pos1
+net pos2	<=     pyvcp.pos2
+net pos3 	<=     pyvcp.pos3
+net pos4 	<=     pyvcp.pos4
+net oiltank     =>     pyvcp.oiltank

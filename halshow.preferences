@@ -1,37 +1,30 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 1156x746+742+41
-placeFrames 0.30332167832167833
-set ::ratio 0.30332167832167833
+wm geometry . 1156x746+619+87
+placeFrames 0.27972027972027974
+set ::ratio 0.27972027972027974
 set ::old_w_leftf 160
 set ::watchlist {
     pin+hm2_7i95.0.encoder.00.count
+    pin+hm2_7i95.0.encoder.01.count
+    pin+hm2_7i95.0.encoder.02.count
+    pin+hm2_7i95.0.encoder.03.count
+    pin+hm2_7i95.0.encoder.04.count
     pin+hm2_7i95.0.inmux.00.enc0-count
     pin+hm2_7i95.0.inmux.00.enc1-count
     pin+hm2_7i95.0.inmux.00.enc2-count
-    pin+hm2_7i95.0.inmux.00.input-00
-    pin+hm2_7i95.0.ssr.00.out-00
-    pin+hm2_7i95.0.ssr.00.out-03
-    pin+hm2_7i95.0.ssr.00.out-05
+    pin+hm2_7i95.0.inmux.00.enc3-count
+    pin+hm2_7i95.0.encoder.00.input-a
+    pin+hm2_7i95.0.encoder.00.input-b
+    pin+hm2_7i95.0.encoder.00.position
+    sig+machine-is-on
+    sig+machine-is-enabled
+    pin+hm2_7i95.0.gpio.041.in
     pin+hm2_7i95.0.gpio.041.out
-    param+hm2_7i95.0.gpio.041.is_output
     pin+hm2_7i95.0.gpio.042.out
     pin+hm2_7i95.0.gpio.043.out
     pin+hm2_7i95.0.gpio.044.out
     pin+hm2_7i95.0.gpio.045.out
-    pin+hm2_7i95.0.gpio.046.out
-    pin+halui.machine.is-on
-    pin+halui.machine.off
-    pin+halui.machine.on
-    pin+halui.lube.is-on
-    pin+halui.lube.off
-    pin+halui.lube.on
-    pin+motion.enable
-    sig+machine-is-enabled
-    sig+machine-is-on
-    sig+x-vel-cmd
-    sig+z-home-sw
-    sig+z-enable
 }
 set ::workmode watchhal
 set ::watchInterval 100
