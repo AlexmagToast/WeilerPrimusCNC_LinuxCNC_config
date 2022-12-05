@@ -1,2 +1,8 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run PNCconf again
+
+loadusr -W lubedude
+
+
+newsig LubePumpPwr bit
+net LubePumpPwr <= lubedude.LubePump => hm2_7i95.0.gpio.042.out
