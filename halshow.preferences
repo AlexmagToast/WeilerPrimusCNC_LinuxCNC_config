@@ -1,30 +1,35 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 1156x746+619+87
-placeFrames 0.27972027972027974
-set ::ratio 0.27972027972027974
+wm geometry . 838x832+961+-8
+placeFrames 0.24272588055130168
+set ::ratio 0.24272588055130168
 set ::old_w_leftf 160
 set ::watchlist {
-    pin+hm2_7i95.0.encoder.00.count
-    pin+hm2_7i95.0.encoder.01.count
-    pin+hm2_7i95.0.encoder.02.count
-    pin+hm2_7i95.0.encoder.03.count
-    pin+hm2_7i95.0.encoder.04.count
-    pin+hm2_7i95.0.inmux.00.enc0-count
-    pin+hm2_7i95.0.inmux.00.enc1-count
-    pin+hm2_7i95.0.inmux.00.enc2-count
-    pin+hm2_7i95.0.inmux.00.enc3-count
-    pin+hm2_7i95.0.encoder.00.input-a
-    pin+hm2_7i95.0.encoder.00.input-b
-    pin+hm2_7i95.0.encoder.00.position
-    sig+machine-is-on
-    sig+machine-is-enabled
-    pin+hm2_7i95.0.gpio.041.in
-    pin+hm2_7i95.0.gpio.041.out
-    pin+hm2_7i95.0.gpio.042.out
-    pin+hm2_7i95.0.gpio.043.out
-    pin+hm2_7i95.0.gpio.044.out
-    pin+hm2_7i95.0.gpio.045.out
+    pin+modbus.N4DIH32.0
+    pin+modbus.N4DIH32.1
+    pin+modbus.N4DIH32.10
+    pin+modbus.N4DIH32.11
+    pin+modbus.N4DIH32.12
+    pin+modbus.N4DIH32.13
+    pin+modbus.N4DIH32.16
+    pin+modbus.N4DIH32.17
+    pin+modbus.N4DIH32.2
+    pin+modbus.N4DIH32.20
+    pin+modbus.N4DIH32.22
+    pin+modbus.N4DIH32.23
+    pin+modbus.N4DIH32.24
+    pin+modbus.N4DIH32.25
+    pin+modbus.N4DIH32.26
+    pin+modbus.N4DIH32.27
+    pin+modbus.N4DIH32.28
+    pin+modbus.N4DIH32.29
+    pin+modbus.N4DIH32.3
+    pin+modbus.N4DIH32.30
+    pin+modbus.N4DIH32.31
+    pin+modbus.N4DIH32.4
+    pin+modbus.N4DIH32.7
+    pin+modbus.N4DIH32.8
+    pin+modbus.N4DIH32.9
 }
 set ::workmode watchhal
 set ::watchInterval 100

@@ -1,8 +1,34 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run PNCconf again
 
-loadusr -W lubedude
+loadusr modbus
 
+
+
+#*******************
+#  Lubedude
+#*******************
+
+#lubedude.manualLube
+#lubedude.SignalLED
+#lubedude.LubeFill
+#lubedude.LubePump
+
+
+loadusr -W lubedude
 
 newsig LubePumpPwr bit
 net LubePumpPwr <= lubedude.LubePump => hm2_7i95.0.gpio.042.out
+net LubePumpPwr arduino.DLED.15
+net manLube <= lubedude.manualLube <= arduino.dIn.32
+
+
+
+
+
+#  ---manual tool change signals---
+
+net tool-change-request    <= iocontrol.0.tool-change
+net tool-change-confirmed  => iocontrol.0.tool-changed
+net tool-number            <= iocontrol.0.tool-prep-number
+
