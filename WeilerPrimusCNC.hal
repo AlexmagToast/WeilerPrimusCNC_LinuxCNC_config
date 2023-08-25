@@ -313,7 +313,7 @@ setp   [HMOT](CARD0).stepgen.02.maxvel           [SPINDLE_0]MAX_VELOCITY
 
 net spindle-enable          =>  [HMOT](CARD0).stepgen.02.enable
 net spindle-vel-cmd-rps     =>  [HMOT](CARD0).stepgen.02.velocity-cmd
-net spindle-vel-fb-rps         <= [HMOT](CARD0).encoder.00.velocity #[HMOT](CARD0).stepgen.02.velocity-fb
+net spindle-vel-fb-rps         <= [HMOT](CARD0).encoder.00.velocity #[HMOT](CARD0).stepgen.02.velocity-fb 
 
 # ---setup spindle Encoders---
 
@@ -341,8 +341,18 @@ net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Speed mode
 #net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Position mode
 
 # ---Setup spindle at speed signals---
+loadrt near
 
-sets spindle-at-speed true
+addf near.0 servo-thread
+
+net spindle-cmd near.0.in1
+
+net spindle-velocity near.0.in2
+
+net spindle-at-speed <= near.0.out
+
+setp near.0.scale 1.01
+#sets spindle-at-speed true
 
 
 #******************************
@@ -423,8 +433,8 @@ net machine-is-on  => arduino.DLED.24 => arduino.DLED.23
 
 
 
-loadrt mux2 count=1
-addf mux2.0 servo-thread
+#loadrt mux2 count=1
+#addf mux2.0 servo-thread
 
 #net ADC_value arduino.aIn.0 => mux2.0.in0
 #net spindle-command motion.spindle-speed-out  => mux2.0.in1
@@ -475,20 +485,9 @@ net chuck_open => arduino.DLED.8
 
 #Sauter Tool Changer
 
-#  ---manual tool change signals---
-
-#loadusr -W hal_manualtoolchange
-
 net tool-change-request    <= iocontrol.0.tool-change => Sauter.trequest
 net tool-change-confirmed  <= iocontrol.0.tool-changed <= Sauter.toolchanged
 net tool-number            <= iocontrol.0.tool-prep-number => Sauter.toolnumber
-
-#  ---Use external manual tool change dialog---
-
-#net tool-change-request    =>  hal_manualtoolchange.change
-#net tool-change-confirmed  <=  hal_manualtoolchange.changed
-#net tool-number            =>  hal_manualtoolchange.number
-
 
 #  ---ignore tool prepare requests---
 net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared

@@ -1,6 +1,6 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 839x832+834+-8
+wm geometry . 839x832+1057+17
 placeFrames 0.2397094430992736
 set ::ratio 0.2397094430992736
 set ::old_w_leftf 160
@@ -14,14 +14,17 @@ set ::watchlist {
     pin+iocontrol.0.tool-prepare
     pin+iocontrol.0.user-enable-out
     pin+iocontrol.0.tool-prepared
-    sig+tool-change-confirmed
-    sig+tool-change-request
-    sig+tool-number
-    sig+turretpos1
-    pin+Sauter.toolchanged
-    pin+Sauter.toolnumber
-    pin+Sauter.trequest
-    pin+Sauter.debug
+    pin+halui.spindle.0.override.value
+    pin+halui.spindle.0.runs-backward
+    pin+halui.spindle.0.runs-forward
+    pin+halui.spindle.0.reverse
+    pin+halui.spindle.0.stop
+    sig+spindle-vel-fb-rps
+    sig+spindle-vel-fb-rpm
+    sig+spindle-vel-cmd-rpm
+    sig+spindle-revs
+    sig+spindle-output
+    sig+spindle-at-speed
 }
 set ::workmode watchhal
 set ::watchInterval 100
