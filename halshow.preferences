@@ -1,35 +1,27 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 838x832+961+-8
-placeFrames 0.24272588055130168
-set ::ratio 0.24272588055130168
+wm geometry . 839x832+834+-8
+placeFrames 0.2397094430992736
+set ::ratio 0.2397094430992736
 set ::old_w_leftf 160
 set ::watchlist {
-    pin+modbus.N4DIH32.0
-    pin+modbus.N4DIH32.1
-    pin+modbus.N4DIH32.10
-    pin+modbus.N4DIH32.11
-    pin+modbus.N4DIH32.12
-    pin+modbus.N4DIH32.13
-    pin+modbus.N4DIH32.16
-    pin+modbus.N4DIH32.17
-    pin+modbus.N4DIH32.2
-    pin+modbus.N4DIH32.20
-    pin+modbus.N4DIH32.22
-    pin+modbus.N4DIH32.23
-    pin+modbus.N4DIH32.24
-    pin+modbus.N4DIH32.25
-    pin+modbus.N4DIH32.26
-    pin+modbus.N4DIH32.27
-    pin+modbus.N4DIH32.28
-    pin+modbus.N4DIH32.29
-    pin+modbus.N4DIH32.3
-    pin+modbus.N4DIH32.30
-    pin+modbus.N4DIH32.31
-    pin+modbus.N4DIH32.4
-    pin+modbus.N4DIH32.7
-    pin+modbus.N4DIH32.8
-    pin+modbus.N4DIH32.9
+    pin+iocontrol.0.tool-change
+    pin+iocontrol.0.tool-changed
+    pin+iocontrol.0.tool-number
+    pin+iocontrol.0.tool-prep-index
+    pin+iocontrol.0.tool-prep-number
+    pin+iocontrol.0.tool-prep-pocket
+    pin+iocontrol.0.tool-prepare
+    pin+iocontrol.0.user-enable-out
+    pin+iocontrol.0.tool-prepared
+    sig+tool-change-confirmed
+    sig+tool-change-request
+    sig+tool-number
+    sig+turretpos1
+    pin+Sauter.toolchanged
+    pin+Sauter.toolnumber
+    pin+Sauter.trequest
+    pin+Sauter.debug
 }
 set ::workmode watchhal
 set ::watchInterval 100

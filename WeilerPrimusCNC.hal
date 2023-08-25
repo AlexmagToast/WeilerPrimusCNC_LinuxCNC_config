@@ -21,7 +21,7 @@ setp [HMOT](CARD0).dpll.01.timer-us -50
 setp [HMOT](CARD0).stepgen.timer-number 1
 
 loadusr -Wn arduino arduino_connector
-loadusr HeadRevolver
+loadusr -Wn Sauter HeadRevolver
 # P1 output signals
 
 setp [HMOT](CARD0).gpio.041.is_output true #M1 Spindle
@@ -477,10 +477,10 @@ net chuck_open => arduino.DLED.8
 
 #  ---manual tool change signals---
 
-loadusr -W hal_manualtoolchange
+#loadusr -W hal_manualtoolchange
 
 net tool-change-request    <= iocontrol.0.tool-change => Sauter.trequest
-net tool-change-confirmed  => iocontrol.0.tool-changed => Sauter.toolchanged
+net tool-change-confirmed  <= iocontrol.0.tool-changed <= Sauter.toolchanged
 net tool-number            <= iocontrol.0.tool-prep-number => Sauter.toolnumber
 
 #  ---Use external manual tool change dialog---

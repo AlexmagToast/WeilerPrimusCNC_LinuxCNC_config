@@ -1,7 +1,40 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run PNCconf again
 
-loadusr modbus
+#loadusr modbus
+#modbus.N4DIH32.0 =
+#modbus.N4DIH32.1 =
+#modbus.N4DIH32.2 =
+#modbus.N4DIH32.3 =
+#modbus.N4DIH32.4 =
+#modbus.N4DIH32.5 =
+#modbus.N4DIH32.6 =
+#modbus.N4DIH32.7 =
+#modbus.N4DIH32.8 =
+#modbus.N4DIH32.9 =
+#modbus.N4DIH32.10 =
+#modbus.N4DIH32.11 =
+#modbus.N4DIH32.12 =
+#modbus.N4DIH32.13 =
+#modbus.N4DIH32.14 =
+#modbus.N4DIH32.15 =
+#modbus.N4DIH32.16 =
+#modbus.N4DIH32.17=
+#modbus.N4DIH32.18 =
+#modbus.N4DIH32.19 =
+#modbus.N4DIH32.20 =
+#modbus.N4DIH32.21 = Empty Lube
+#modbus.N4DIH32.22 =
+#modbus.N4DIH32.23 =
+#modbus.N4DIH32.24 =
+#modbus.N4DIH32.25 =
+#modbus.N4DIH32.26 =
+#modbus.N4DIH32.27 =
+#modbus.N4DIH32.28 =
+#modbus.N4DIH32.29 =
+#modbus.N4DIH32.30 =
+#modbus.N4DIH32.31 =
+
 
 
 
@@ -21,7 +54,7 @@ newsig LubePumpPwr bit
 net LubePumpPwr <= lubedude.LubePump => hm2_7i95.0.gpio.042.out
 net LubePumpPwr arduino.DLED.15
 net manLube <= lubedude.manualLube <= arduino.dIn.32
-
+#net Lubefill <= lubedude.LubeFill <= modbus.N4DIH32.21
 
 
 
