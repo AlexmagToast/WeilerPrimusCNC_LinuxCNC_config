@@ -52,16 +52,17 @@ loadusr -W lubedude
 
 newsig LubePumpPwr bit
 net LubePumpPwr <= lubedude.LubePump => hm2_7i95.0.gpio.042.out
-net LubePumpPwr arduino.DLED.15
-net manLube <= lubedude.manualLube <= arduino.dIn.32
-#net Lubefill <= lubedude.LubeFill <= modbus.N4DIH32.21
+net LubePumpPwr arduino.dled.15
+net manLube <= lubedude.manualLube <= arduino.din.32
+setp modbus.N4DIH32.21-invert true
+net Lubefill <= lubedude.LubeFill <= modbus.N4DIH32.21
 
 
 
 
 #  ---manual tool change signals---
 
-net tool-change-request    <= iocontrol.0.tool-change
-net tool-change-confirmed  => iocontrol.0.tool-changed
-net tool-number            <= iocontrol.0.tool-prep-number
+#net tool-change-request    <= iocontrol.0.tool-change
+#net tool-change-confirmed  => iocontrol.0.tool-changed
+#net tool-number            <= iocontrol.0.tool-prep-number
 

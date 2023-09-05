@@ -20,8 +20,11 @@ addf [HMOT](CARD0).write         servo-thread
 setp [HMOT](CARD0).dpll.01.timer-us -50
 setp [HMOT](CARD0).stepgen.timer-number 1
 
-loadusr -Wn arduino arduino_connector
+loadusr -Wn arduino arduino-connector
 loadusr -Wn Sauter HeadRevolver
+loadusr modbus
+
+
 # P1 output signals
 
 setp [HMOT](CARD0).gpio.041.is_output true #M1 Spindle
@@ -29,7 +32,7 @@ setp [HMOT](CARD0).gpio.042.is_output true #M2 Öl schmierpumpe
 setp [HMOT](CARD0).gpio.043.is_output true #M3 
 setp [HMOT](CARD0).gpio.044.is_output true #M4 KSS
 setp [HMOT](CARD0).gpio.045.is_output true #M5 Hydraulik Pumpe
-setp [HMOT](CARD0).gpio.046.is_output true #XZ Enable
+setp [HMOT](CARD0).gpio.046.is_output true #Mist Enable
 
 
 setp [HMOT](CARD0).gpio.041.invert_output true #M1 off when booting
@@ -37,7 +40,7 @@ setp [HMOT](CARD0).gpio.042.invert_output true #M2 off when booting
 setp [HMOT](CARD0).gpio.043.invert_output true #M3 off when booting
 setp [HMOT](CARD0).gpio.044.invert_output true #M4 off when booting
 setp [HMOT](CARD0).gpio.045.invert_output true ##M5 off when booting
-setp [HMOT](CARD0).gpio.046.invert_output true #XZ Ena off when booting
+setp [HMOT](CARD0).gpio.046.invert_output true #Mist off when booting
 
 setp [HMOT](CARD0).gpio.047.is_output true #Z Enable
 setp [HMOT](CARD0).gpio.049.is_output true #Z Alarm Reset
@@ -75,80 +78,113 @@ setp [HMOT](CARD0).gpio.051.invert_output true #Z Alarm Reset
 
 
 
-#arduino.LPoti.1.0
-#arduino.LPoti.1.1
-#arduino.LPoti.1.2
-#arduino.LPoti.1.3
-#arduino.LPoti.1.4
-#arduino.LPoti.1.5
-#arduino.LPoti.1.6
-#arduino.LPoti.1.7
-#arduino.LPoti.1.8
+#arduino.lpoti.1.0
+#arduino.lpoti.1.1
+#arduino.lpoti.1.2
+#arduino.lpoti.1.3
+#arduino.lpoti.1.4
+#arduino.lpoti.1.5
+#arduino.lpoti.1.6
+#arduino.lpoti.1.7
+#arduino.lpoti.1.8
 
-#arduino.LPoti.2.0
-#arduino.LPoti.2.1
-#arduino.LPoti.2.2
-#arduino.LPoti.2.3
+#arduino.lpoti.2.0
+#arduino.lpoti.2.1
+#arduino.lpoti.2.2
+#arduino.lpoti.2.3
 
 
 #arduino.aIn.0
 
 
-#arduino.dIn.12     
-#arduino.dIn.28     start
-#arduino.dIn.30     MPG Enable
-#arduino.dIn.31     radial servo
-#arduino.dIn.32     oil
-#arduino.dIn.33
-#arduino.dIn.34     
-#arduino.dIn.35     mist
-#arduino.dIn.36     flood
-#arduino.dIn.37     coolant off
-#arduino.dIn.38     -
-#arduino.dIn.39     alarm
-#arduino.dIn.40     machine off
-#arduino.dIn.41     machine on
-#arduino.dIn.42     spindel ccw
-#arduino.dIn.43     chuck open
-#arduino.dIn.44     spindle stop
-#arduino.dIn.45     chuck close
-#arduino.dIn.46     spindel cw
-#arduino.dIn.47     stop
-#arduino.dIn.48     tool change
-#arduino.dIn.49     pause
+#arduino.din.12     
+#arduino.din.28     start
+#arduino.din.30     MPG Enable
+#arduino.din.31     radial servo
+#arduino.din.32     oil
+#arduino.din.33     hydraulic on
+#arduino.din.34     
+#arduino.din.35     mist
+#arduino.din.36     flood
+#arduino.din.37     coolant off
+#arduino.din.38     -
+#arduino.din.39     alarm
+#arduino.din.40     machine off
+#arduino.din.41     machine on
+#arduino.din.42     spindel ccw
+#arduino.din.43     chuck open
+#arduino.din.44     spindle stop
+#arduino.din.45     chuck close
+#arduino.din.46     spindel cw
+#arduino.din.47     stop
+#arduino.din.48     tool change
+#arduino.din.49     pause
 
 
 
 
-#arduino.DLED.0
-#arduino.DLED.1
-#arduino.DLED.2
-#arduino.DLED.3
-#arduino.DLED.4
-#arduino.DLED.5
-#arduino.DLED.6
-#arduino.DLED.7
-#arduino.DLED.8
-#arduino.DLED.9
-#arduino.DLED.10
-#arduino.DLED.11
-#arduino.DLED.12
-#arduino.DLED.13
-#arduino.DLED.14
-#arduino.DLED.15
-#arduino.DLED.16
-#arduino.DLED.17
-#arduino.DLED.18
-#arduino.DLED.19
-#arduino.DLED.20
-#arduino.DLED.21
-#arduino.DLED.22
-#arduino.DLED.23
-#arduino.DLED.24
-#arduino.DLED.25
+#arduino.dled.0     
+#arduino.dled.1     
+#arduino.dled.2     
+#arduino.dled.3     
+#arduino.dled.4     
+#arduino.dled.5     
+#arduino.dled.6     
+#arduino.dled.7     
+#arduino.dled.8     
+#arduino.dled.9     
+#arduino.dled.10    
+#arduino.dled.11    
+#arduino.dled.12    
+#arduino.dled.13    
+#arduino.dled.14    
+#arduino.dled.15    
+#arduino.dled.16    
+#arduino.dled.17    
+#arduino.dled.18    coolant mist
+#arduino.dled.19    coolant on
+#arduino.dled.20    coolant off
+#arduino.dled.21    
+#arduino.dled.22    
+#arduino.dled.23    
+#arduino.dled.24    
+#arduino.dled.25
 
 
 
+#modbus.ND41H.0     
+#modbus.ND41H.1     
+#modbus.ND41H.2     
+#modbus.ND41H.3     
+#modbus.ND41H.4     
+#modbus.ND41H.5     
+#modbus.ND41H.6     
+#modbus.ND41H.7     
+#modbus.ND41H.8     
+#modbus.ND41H.9     
+#modbus.ND41H.10    
+#modbus.ND41H.11    
+#modbus.ND41H.12    
+#modbus.ND41H.13    
+#modbus.ND41H.14    
+#modbus.ND41H.15    
+#modbus.ND41H.16     Weißgrün Ventil?
+
+#modbus.ND41H.17     NC Öldruck Filter Grau 
+#modbus.ND41H.18     NO Öldruck Filter Grau Wß
+#modbus.ND41H.19     Temp Schalter 
+#modbus.ND41H.20     Temp Schalter
+#modbus.ND41H.21     NC Bettbahnöl Füllstand
+#modbus.ND41H.22     
+#modbus.ND41H.23     
+#modbus.ND41H.24     
+#modbus.ND41H.25     
+#modbus.ND41H.26     
+#modbus.ND41H.27     
+#modbus.ND41H.28     
+#modbus.ND41H.29     
+#modbus.ND41H.30
+#modbus.ND41H.31
 
 #*******************
 #  AXIS X JOINT 0
@@ -320,7 +356,8 @@ net spindle-vel-fb-rps         <= [HMOT](CARD0).encoder.00.velocity #[HMOT](CARD
 setp [HMOT](CARD0).encoder.00.counter-mode 0
 setp [HMOT](CARD0).encoder.00.filter 1
 setp [HMOT](CARD0).encoder.00.scale [SPINDLE_0]ENCODER_SCALE
-#net spindle-index-enable [HMOT](CARD0).encoder.00.index-enable <=> spindle.0.index-enable
+
+net spindle-index-enable      <=>  [HMOT](CARD0).encoder.00.index-enable <=> spindle.0.index-enable
 
 # ---setup spindle control signals---
 
@@ -335,10 +372,11 @@ net spindle-brake              <=  spindle.0.brake
 net spindle-revs               =>  spindle.0.revs <= [HMOT](CARD0).encoder.00.position
 net spindle-at-speed           =>  spindle.0.at-speed 
 net spindle-vel-fb-rps         =>  spindle.0.speed-in
-net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
+#net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
 
-net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Speed mode
+net spindle-enable => hm2_7i95.0.ssr.00.out-01 #Put Servo in Speed mode
 #net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Position mode
+
 
 # ---Setup spindle at speed signals---
 loadrt near
@@ -352,6 +390,7 @@ net spindle-velocity near.0.in2
 net spindle-at-speed <= near.0.out
 
 setp near.0.scale 1.01
+
 #sets spindle-at-speed true
 
 
@@ -373,30 +412,36 @@ net jog-z-analog   halui.axis.z.analog
 net z-is-homed     halui.joint.1.is-homed
 net jog-selected-pos      halui.axis.selected.plus
 net jog-selected-neg      halui.axis.selected.minus
-net spindle-manual-cw     halui.spindle.0.forward <= arduino.dIn.46
-net spindle-cw  => arduino.DLED.2
-net spindle-manual-ccw    halui.spindle.0.reverse <= arduino.dIn.42
-net spindle-ccw  => arduino.DLED.0
-net spindle-manual-stop   halui.spindle.0.stop <= arduino.dIn.44
-net spindle-brake => arduino.DLED.1
+net spindle-manual-cw     halui.spindle.0.forward <= arduino.din.46
+net spindle-cw  => arduino.dled.2
+net spindle-manual-ccw    halui.spindle.0.reverse <= arduino.din.42
+net spindle-ccw  => arduino.dled.0
+net spindle-manual-stop   halui.spindle.0.stop <= arduino.din.44
+net spindle-brake => arduino.dled.1
 net machine-is-on         halui.machine.is-on
 net jog-speed             halui.axis.jog-speed
 net MDI-mode              halui.mode.is-mdi
 
 #  ---coolant signals---
 
-net coolant-mist      <=  iocontrol.0.coolant-mist #<= arduino.dIn.35 
-net coolant-flood     <=  iocontrol.0.coolant-flood #<= arduino.dIn.36
+net coolant-mist      <=  iocontrol.0.coolant-mist
+net coolant-flood     <=  iocontrol.0.coolant-flood
 
-net coolant-mist => arduino.DLED.18
-net coolant-flood => arduino.DLED.19
+net coolant-mist-on <= halui.mist.on <= arduino.din.35
+net coolant-flood-on <= halui.flood.on <= arduino.din.36
+
+
+net coolant-flood-off <= halui.flood.off <= arduino.din.37
+net coolant-flood-off => halui.mist.off
+
+net coolant-mist => arduino.dled.18 => [HMOT](CARD0).gpio.046.out
+net coolant-flood => arduino.dled.19 => [HMOT](CARD0).gpio.044.out
+
+net coolant-state <= halui.flood.is-on => arduino.dled.20
 
 #  ---probe signal---
 
 net probe-in     =>  motion.probe-input
-
-
-
 
 #  ---motion control signals---
 
@@ -404,7 +449,7 @@ net in-position               <=  motion.in-position
 net machine-is-enabled        <=  motion.motion-enabled
 
 net machine-is-enabled => [HMOT](CARD0).gpio.047.out => [HMOT](CARD0).gpio.050.out # Enable X&Z Motor
-net machine-is-enabled => [HMOT](CARD0).gpio.046.out => [HMOT](CARD0).gpio.041.out #turn on XZ Servos & Spindle when motion is enabled
+net machine-is-enabled => [HMOT](CARD0).gpio.041.out# => [HMOT](CARD0).gpio.046.out #turn on XZ Servos & Spindle when motion is enabled
 
 
 #  ---digital in / out signals---
@@ -418,17 +463,19 @@ net estop-set     <=  [HMOT](CARD0).inmux.00.input-11-not => halui.estop.activat
 
 
 
-net Pause-Pgm <= arduino.dIn.49 
+net pgm_run halui.program.run <= arduino.din.28
+net pgm_pause halui.program.pause <= arduino.din.49 
+net pgm_stop halui.program.stop <= arduino.din.47
 
-net Pgm-Stop <= arduino.dIn.47
-
-
+net pgm_is_run => halui.program.is-running => arduino.dled.12
+net pgm_is_pause => halui.program.is-paused => arduino.dled.11
+net pgm_is_stop => halui.program.is-idle => arduino.dled.10
 
 #Power On Buttons and LED's
-net poweron-button => halui.machine.on <= arduino.dIn.41
-net poweroff-button => halui.machine.off <= arduino.dIn.40
+net poweron-button => halui.machine.on <= arduino.din.41
+net poweroff-button => halui.machine.off <= arduino.din.40
 
-net machine-is-on  => arduino.DLED.24 => arduino.DLED.23
+net machine-is-on  => arduino.dled.24 => arduino.dled.23
 
 
 
@@ -449,7 +496,7 @@ setp halui.spindle.0.override.direct-value true
 setp halui.spindle.0.override.count-enable true
 setp halui.spindle.0.override.scale 0.01
 
-net SpindleOverride <= halui.spindle.0.override.counts <= arduino.LPoti.1.out
+net SpindleOverride <= halui.spindle.0.override.counts <= arduino.lpoti.1.out
 
 
 #Feed Override
@@ -457,12 +504,20 @@ setp halui.feed-override.count-enable 1
 setp halui.feed-override.direct-value 1
 setp halui.feed-override.scale 0.01
 
-net FeedOverride <= arduino.BinSelKnob.0.out => halui.feed-override.counts
+net FeedOverride <= arduino.binselknob.0.out => halui.feed-override.counts
+
+#Jog Override
+setp halui.rapid-override.count-enable 1
+setp halui.rapid-override.direct-value 1
+setp halui.rapid-override.scale 0.01
+
+net FeedOverride => halui.rapid-override.counts
 
 
 #MPG
-net mpg-enable axis.z.jog-enable <= axis.x.jog-enable <= arduino.dIn.30
-net mpg-enable => arduino.DLED.13
+setp arduino.din.30-invert true
+net mpg-enable axis.z.jog-enable <= axis.x.jog-enable <= arduino.din.30
+net mpg-enable => arduino.dled.13
 
 net Zencoder-counts <= hm2_7i95.0.inmux.00.enc0-count #Z
 net Zencoder-counts => axis.z.jog-counts
@@ -470,22 +525,25 @@ net Zencoder-counts => axis.z.jog-counts
 net Xencoder-counts <= hm2_7i95.0.inmux.00.enc1-count #Z
 net Xencoder-counts => axis.x.jog-counts
 
-net mpg-scale <= arduino.LPoti.2.out
-net mpg-scale => axis.x.jog-scale axis.z.jog-scale
+net mpg-scale <= arduino.lpoti.2.out
+net mpg-scale => axis.x.jog-scale <=> axis.z.jog-scale
 
 
 # Hydraulics
-net Hydraulic_pump_on <= arduino.dIn.33 => arduino.DLED.16
+
+setp arduino.din.33-invert true
+net Hydraulic_pump_on <= arduino.din.33 => arduino.dled.16
 net Hydraulic_pump_on => [HMOT](CARD0).gpio.045.out
 
-net chuck_close <= [HMOT](CARD0).ssr.00.out-04 <= arduino.dIn.43
-net chuck_close => arduino.DLED.9
-net chuck_open <= [HMOT](CARD0).ssr.00.out-05 <= arduino.dIn.45
-net chuck_open => arduino.DLED.8
+net chuck_close <= [HMOT](CARD0).ssr.00.out-04 <= arduino.din.43
+net chuck_close => arduino.dled.9
+net chuck_open <= [HMOT](CARD0).ssr.00.out-05 <= arduino.din.45
+net chuck_open => arduino.dled.8
 
 #Sauter Tool Changer
 
 net tool-change-request    <= iocontrol.0.tool-change => Sauter.trequest
+net tool-change-request    => arduino.dled.3
 net tool-change-confirmed  <= iocontrol.0.tool-changed <= Sauter.toolchanged
 net tool-number            <= iocontrol.0.tool-prep-number => Sauter.toolnumber
 
@@ -493,18 +551,19 @@ net tool-number            <= iocontrol.0.tool-prep-number => Sauter.toolnumber
 net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
 
 
+
 #HMI LED's
 net turretpos1 <= [HMOT](CARD0).inmux.00.input-12
-net turretpos1 => arduino.DLED.4 => Sauter.pos1
+net turretpos1 => arduino.dled.4 => Sauter.pos1
 
 net turretpos2 <= [HMOT](CARD0).inmux.00.input-14
-net turretpos2 => arduino.DLED.5 => Sauter.pos2
+net turretpos2 => arduino.dled.5 => Sauter.pos2
 
 net turretpos3 <= [HMOT](CARD0).inmux.00.input-13
-net turretpos3 => arduino.DLED.6 => Sauter.pos3
+net turretpos3 => arduino.dled.6 => Sauter.pos3
 
 net turretpos4 <= [HMOT](CARD0).inmux.00.input-15
-net turretpos4 => arduino.DLED.7 => Sauter.pos4
+net turretpos4 => arduino.dled.7 => Sauter.pos4
 
  
 net Hydraulic_pump_on => Sauter.hydraulik
@@ -514,6 +573,6 @@ net ValveA <= Sauter.coilA => [HMOT](CARD0).ssr.00.out-02
 net ValveB <= Sauter.coilB => [HMOT](CARD0).ssr.00.out-03
 
 
-net Fault <= Sauter.fault => arduino.DLED.22
+net Fault <= Sauter.fault => arduino.dled.22
 #c.newpin("reset", hal.HAL_BIT, hal.HAL_IN)
 #c.newpin("debug", hal.HAL_FLOAT, hal.HAL_OUT)
