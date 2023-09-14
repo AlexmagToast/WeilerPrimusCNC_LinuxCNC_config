@@ -374,7 +374,7 @@ net spindle-at-speed           =>  spindle.0.at-speed
 net spindle-vel-fb-rps         =>  spindle.0.speed-in
 #net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
 
-net spindle-enable => hm2_7i95.0.ssr.00.out-01 #Put Servo in Speed mode
+#net spindle-enable => hm2_7i95.0.ssr.00.out-01 #Put Servo in Speed mode
 #net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Position mode
 
 

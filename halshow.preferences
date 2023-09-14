@@ -5,10 +5,25 @@ placeFrames 0.24974721941354905
 set ::ratio 0.24974721941354905
 set ::old_w_leftf 160
 set ::watchlist {
-    pin+arduino.binselknob.0.out
-    pin+arduino.lpoti.1.out
-    pin+arduino.lpoti.2.out
-    pin+arduino.ain.0
+    sig+spindle-at-speed
+    sig+spindle-brake
+    sig+spindle-ccw
+    sig+spindle-cmd
+    sig+spindle-cw
+    sig+spindle-enable
+    sig+spindle-index-enable
+    sig+spindle-manual-ccw
+    sig+spindle-manual-cw
+    sig+spindle-manual-stop
+    sig+spindle-output
+    sig+spindle-revs
+    sig+spindle-vel-cmd-rpm
+    sig+spindle-vel-cmd-rpm-abs
+    sig+spindle-vel-cmd-rps
+    sig+spindle-vel-cmd-rps-abs
+    sig+spindle-vel-fb-rpm
+    sig+spindle-velocity
+    pin+hm2_7i95.0.ssr.00.out-01
 }
 set ::workmode watchhal
 set ::watchInterval 100
