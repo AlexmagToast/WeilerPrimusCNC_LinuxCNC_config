@@ -369,7 +369,7 @@ net spindle-enable             <=  spindle.0.on
 net spindle-cw                 <=  spindle.0.forward
 net spindle-ccw                <=  spindle.0.reverse
 net spindle-brake              <=  spindle.0.brake
-net spindle-revs               =>  spindle.0.revs <= [HMOT](CARD0).encoder.00.position
+net spindle-revs               =>  spindle.0.revs #<= [HMOT](CARD0).encoder.00.position
 net spindle-at-speed           =>  spindle.0.at-speed 
 net spindle-vel-fb-rps         =>  spindle.0.speed-in
 #net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
@@ -379,19 +379,19 @@ net spindle-vel-fb-rps         =>  spindle.0.speed-in
 
 
 # ---Setup spindle at speed signals---
-loadrt near
+#loadrt near
 
-addf near.0 servo-thread
+#addf near.0 servo-thread
 
-net spindle-cmd near.0.in1
+#net spindle-cmd near.0.in1
 
-net spindle-velocity near.0.in2
+#net spindle-velocity near.0.in2
 
-net spindle-at-speed <= near.0.out
+#net spindle-at-speed <= near.0.out
 
-setp near.0.scale 1.01
+#setp near.0.scale 1.01
 
-#sets spindle-at-speed true
+sets spindle-at-speed true
 
 
 #******************************
@@ -413,11 +413,11 @@ net z-is-homed     halui.joint.1.is-homed
 net jog-selected-pos      halui.axis.selected.plus
 net jog-selected-neg      halui.axis.selected.minus
 net spindle-manual-cw     halui.spindle.0.forward <= arduino.din.46
-net spindle-cw  => arduino.dled.2
+net spindle-cw            => arduino.dled.2
 net spindle-manual-ccw    halui.spindle.0.reverse <= arduino.din.42
-net spindle-ccw  => arduino.dled.0
+net spindle-ccw           => arduino.dled.0
 net spindle-manual-stop   halui.spindle.0.stop <= arduino.din.44
-net spindle-brake => arduino.dled.1
+net spindle-brake         => arduino.dled.1
 net machine-is-on         halui.machine.is-on
 net jog-speed             halui.axis.jog-speed
 net MDI-mode              halui.mode.is-mdi
@@ -492,8 +492,8 @@ net machine-is-on  => arduino.dled.24 => arduino.dled.23
 
 
 #Spindle Override
-setp halui.spindle.0.override.direct-value true
-setp halui.spindle.0.override.count-enable true
+#setp halui.spindle.0.override.direct-value true
+#setp halui.spindle.0.override.count-enable true
 setp halui.spindle.0.override.scale 0.01
 
 net SpindleOverride <= halui.spindle.0.override.counts <= arduino.lpoti.1.out

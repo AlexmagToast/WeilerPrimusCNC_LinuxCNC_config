@@ -1,6 +1,6 @@
 # Halshow settings
 # This file is generated automatically.
-wm geometry . 1001x959+459+-8
+wm geometry . 1001x959+889+6
 placeFrames 0.24974721941354905
 set ::ratio 0.24974721941354905
 set ::old_w_leftf 160
@@ -8,13 +8,9 @@ set ::watchlist {
     sig+spindle-at-speed
     sig+spindle-brake
     sig+spindle-ccw
-    sig+spindle-cmd
     sig+spindle-cw
     sig+spindle-enable
     sig+spindle-index-enable
-    sig+spindle-manual-ccw
-    sig+spindle-manual-cw
-    sig+spindle-manual-stop
     sig+spindle-output
     sig+spindle-revs
     sig+spindle-vel-cmd-rpm
@@ -22,8 +18,61 @@ set ::watchlist {
     sig+spindle-vel-cmd-rps
     sig+spindle-vel-cmd-rps-abs
     sig+spindle-vel-fb-rpm
-    sig+spindle-velocity
     pin+hm2_7i95.0.ssr.00.out-01
+    pin+motion.motion-enabled
+    pin+motion.on-soft-limit
+    sig+spindle-vel-fb-rps
+    pin+halui.spindle.0.brake-is-on
+    pin+halui.spindle.0.brake-off
+    pin+halui.spindle.0.brake-on
+    pin+halui.spindle.0.decrease
+    pin+halui.spindle.0.forward
+    pin+halui.spindle.0.increase
+    pin+halui.spindle.0.is-on
+    pin+halui.spindle.0.reverse
+    pin+halui.spindle.0.runs-backward
+    pin+halui.spindle.0.runs-forward
+    pin+halui.spindle.0.start
+    pin+halui.spindle.0.stop
+    pin+spindle.0.amp-fault-in
+    pin+spindle.0.at-speed
+    pin+spindle.0.brake
+    pin+spindle.0.forward
+    pin+spindle.0.index-enable
+    pin+spindle.0.inhibit
+    pin+spindle.0.locked
+    pin+spindle.0.on
+    pin+spindle.0.orient-fault
+    pin+spindle.0.orient-mode
+    pin+spindle.0.reverse
+    pin+spindle.0.revs
+    pin+spindle.0.speed-cmd-rps
+    pin+spindle.0.speed-in
+    pin+spindle.0.speed-out
+    pin+spindle.0.speed-out-abs
+    pin+spindle.0.speed-out-rps
+    pin+spindle.0.speed-out-rps-abs
+    pin+halui.spindle.0.override.count-enable
+    pin+halui.spindle.0.override.counts
+    pin+halui.spindle.0.override.decrease
+    pin+halui.spindle.0.override.direct-value
+    pin+halui.spindle.0.override.increase
+    pin+halui.spindle.0.override.reset
+    pin+halui.spindle.0.override.scale
+    pin+halui.spindle.0.override.value
+    sig+SpindleOverride
+    sig+spindle-manual-ccw
+    sig+spindle-manual-cw
+    sig+spindle-manual-stop
+    param+hm2_7i95.0.stepgen.02.maxaccel
+    param+hm2_7i95.0.stepgen.02.dirhold
+    param+hm2_7i95.0.stepgen.02.direction.invert_output
+    param+hm2_7i95.0.stepgen.02.direction.is_opendrain
+    param+hm2_7i95.0.stepgen.02.position-scale
+    param+hm2_7i95.0.stepgen.02.step_type
+    param+hm2_7i95.0.stepgen.02.steplen
+    param+hm2_7i95.0.stepgen.02.stepspace
+    param+hm2_7i95.0.stepgen.02.table-data-0
 }
 set ::workmode watchhal
 set ::watchInterval 100
