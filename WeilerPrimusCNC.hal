@@ -314,85 +314,129 @@ net z-pos-limit     =>  joint.1.pos-lim-sw-in
 #*******************
 
 
-setp   pid.s.Pgain     [SPINDLE_0]P
-setp   pid.s.Igain     [SPINDLE_0]I
-setp   pid.s.Dgain     [SPINDLE_0]D
-setp   pid.s.bias      [SPINDLE_0]BIAS
-setp   pid.s.FF0       [SPINDLE_0]FF0
-setp   pid.s.FF1       [SPINDLE_0]FF1
-setp   pid.s.FF2       [SPINDLE_0]FF2
-setp   pid.s.deadband  [SPINDLE_0]DEADBAND
-setp   pid.s.maxoutput [SPINDLE_0]MAX_OUTPUT
-setp   pid.s.error-previous-target true
-# This setting is to limit bogus stepgen
-# velocity corrections caused by position
-# feedback sample time jitter.
-setp   pid.s.maxerror 0.000500
-
-net spindle-index-enable  <=> pid.s.index-enable
-net spindle-enable        =>  pid.s.enable
-net spindle-vel-cmd-rpm     => pid.s.command
-net spindle-vel-fb-rpm      => pid.s.feedback
-net spindle-output        <=  pid.s.output
-
-# Step Gen signals/setup
-
-setp   [HMOT](CARD0).stepgen.02.dirsetup        [SPINDLE_0]DIRSETUP
-setp   [HMOT](CARD0).stepgen.02.dirhold         [SPINDLE_0]DIRHOLD
-setp   [HMOT](CARD0).stepgen.02.steplen         [SPINDLE_0]STEPLEN
-setp   [HMOT](CARD0).stepgen.02.stepspace       [SPINDLE_0]STEPSPACE
-setp   [HMOT](CARD0).stepgen.02.position-scale  [SPINDLE_0]STEP_SCALE
-setp   [HMOT](CARD0).stepgen.02.step_type        2
-setp   [HMOT](CARD0).stepgen.02.control-type     1
-setp   [HMOT](CARD0).stepgen.02.maxaccel         [SPINDLE_0]MAX_ACCELERATION
-setp   [HMOT](CARD0).stepgen.02.maxvel           [SPINDLE_0]MAX_VELOCITY
-
-net spindle-enable          =>  [HMOT](CARD0).stepgen.02.enable
-net spindle-vel-cmd-rps     =>  [HMOT](CARD0).stepgen.02.velocity-cmd
-net spindle-vel-fb-rps         <= [HMOT](CARD0).encoder.00.velocity #[HMOT](CARD0).stepgen.02.velocity-fb 
-
-# ---setup spindle Encoders---
-
-setp [HMOT](CARD0).encoder.00.counter-mode 0
-setp [HMOT](CARD0).encoder.00.filter 1
-setp [HMOT](CARD0).encoder.00.scale [SPINDLE_0]ENCODER_SCALE
-
-net spindle-index-enable      <=>  [HMOT](CARD0).encoder.00.index-enable <=> spindle.0.index-enable
-
-# ---setup spindle control signals---
-
-net spindle-vel-cmd-rps        <=  spindle.0.speed-out-rps
-net spindle-vel-cmd-rps-abs    <=  spindle.0.speed-out-rps-abs
-net spindle-vel-cmd-rpm        <=  spindle.0.speed-out
-net spindle-vel-cmd-rpm-abs    <=  spindle.0.speed-out-abs
-net spindle-enable             <=  spindle.0.on
-net spindle-cw                 <=  spindle.0.forward
-net spindle-ccw                <=  spindle.0.reverse
-net spindle-brake              <=  spindle.0.brake
-net spindle-revs               =>  spindle.0.revs #<= [HMOT](CARD0).encoder.00.position
-net spindle-at-speed           =>  spindle.0.at-speed 
-net spindle-vel-fb-rps         =>  spindle.0.speed-in
-#net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
-
-#net spindle-enable => hm2_7i95.0.ssr.00.out-01 #Put Servo in Speed mode
-#net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Position mode
+setp    hm2_7i95.0.encoder.00.counter-mode 0
+setp    hm2_7i95.0.encoder.00.filter 1
+setp    hm2_7i95.0.encoder.00.index-invert 0
+setp    hm2_7i95.0.encoder.00.index-mask 0
+setp    hm2_7i95.0.encoder.00.index-mask-invert 0
+setp    hm2_7i95.0.encoder.00.scale 		  [SPINDLE_0]ENCODER_SCALE
 
 
-# ---Setup spindle at speed signals---
-#loadrt near
+setp   hm2_7i95.0.stepgen.02.dirsetup        [SPINDLE_0]DIRSETUP
+setp   hm2_7i95.0.stepgen.02.dirhold         [SPINDLE_0]DIRHOLD
+setp   hm2_7i95.0.stepgen.02.steplen         [SPINDLE_0]STEPLEN
+setp   hm2_7i95.0.stepgen.02.stepspace       [SPINDLE_0]STEPSPACE
+setp   hm2_7i95.0.stepgen.02.position-scale  [SPINDLE_0]OUTPUT_SCALE
+setp   hm2_7i95.0.stepgen.02.step_type        2
+setp   hm2_7i95.0.stepgen.02.control-type     1
+setp   hm2_7i95.0.stepgen.02.maxaccel        [SPINDLE_0]STEPGEN_MAXACCEL
+setp   hm2_7i95.0.stepgen.02.maxvel          [SPINDLE_0]STEPGEN_MAXVEL
 
-#addf near.0 servo-thread
+	
+#loadrt pid          names=pid.s
+loadrt limit2    	names=spindle-ramp			
+loadrt near      	names=spindle-at-speed,spindle-at-pos
+loadrt timedelay 	names=spindle-active-delay	
+loadrt orient 	 	names=spindle-orient
+loadrt mux2	 	    names=spindle-out-switch
+loadrt or2       	count=1
+loadrt not	 	    count=1
+loadrt and2	 	    count=1
+loadrt offset	 	count=1
+loadrt invert       count=1
 
-#net spindle-cmd near.0.in1
 
-#net spindle-velocity near.0.in2
+#addf pid.s.do-pid-calcs         servo-thread	
+addf spindle-ramp     			servo-thread			
+addf spindle-at-speed 			servo-thread
+addf spindle-at-pos 			servo-thread
+addf spindle-active-delay		servo-thread
+addf spindle-orient   			servo-thread
+addf spindle-out-switch  		servo-thread
+addf or2.0	 			        servo-thread
+addf not.0	 			        servo-thread	
+addf and2.0	 			        servo-thread
+addf offset.0.update-output		servo-thread
+addf invert.0                   servo-thread
 
-#net spindle-at-speed <= near.0.out
+	
+setp   pid.s.Pgain                  [SPINDLE_0]P
+setp   pid.s.Igain                  [SPINDLE_0]I
+setp   pid.s.Dgain                  [SPINDLE_0]D
+setp   pid.s.bias                   [SPINDLE_0]BIAS
+setp   pid.s.FF0                    [SPINDLE_0]FF0
+setp   pid.s.FF1                    [SPINDLE_0]FF1
+setp   pid.s.FF2                    [SPINDLE_0]FF2
+setp   pid.s.deadband               [SPINDLE_0]DEADBAND
+setp   pid.s.maxoutput              [SPINDLE_0]MAX_OUTPUT
+setp   pid.s.error-previous-target  true
 
-#setp near.0.scale 1.01
+setp   spindle-ramp.maxv 			        [SPINDLE_0]ACCELERATION 		
+setp   spindle-at-speed.difference 		    [SPINDLE_0]MAX_ERROR
+setp   spindle-at-pos.difference 		    0.01
+setp   spindle-at-pos.in1			        0	
+setp   spindle-active-delay.on-delay 		0
+setp   spindle-active-delay.off-delay		[SPINDLE_0]OFF_DELAY	
 
-sets spindle-at-speed true
+# orient mit spindle verknuepfen
+#------------------------------
+net orient-angle 	spindle.0.orient-angle => spindle-orient.angle
+net orient-mode 	spindle.0.orient-mode  => spindle-orient.mode      
+net orient-enable 	spindle.0.orient       => and2.0.in1     
 
+# Position vom Encoder in den pid / orient und spindle schieben
+#-------------------------------------------------------------   
+net spindle-pos		=> pid.s.feedback   => spindle-orient.position
+net spindle-pos	    <= spindle.0.revs     <= hm2_7i95.0.encoder.00.position
+
+# Encodergeschwindigkeit U/sek in den near und spindle schieben
+#-------------------------------------------------------------
+net spindle-fb-rps 	spindle.0.speed-in     <= hm2_7i95.0.encoder.00.velocity   => spindle-at-speed.in2
+
+# Positionsvorgabe vom orient in den pid schieben
+#------------------------------------------------
+setp offset.0.offset 1
+net spindle.otient-cmd  spindle-orient.command  => offset.0.in
+net spindle-orient-cmd1  offset.0.out  => pid.s.command
+
+# Drehzahlvorgabe U/min aus spindle in das limit2 schieben
+#--------------------------------------------------------
+net spindle-speed-rpm   spindle.0.speed-out  => spindle-ramp.in
+
+# Drehzahlvorgabe U/sek aus spindle in das near schieben
+#------------------------------------------------------
+net spindle-speed-rps   spindle.0.speed-out-rps => spindle-at-speed.in1 
+
+# Wenn Solldrehzahl gleich Istdrehzahl dann aus near das bit in spindle schieben
+#------------------------------------------------------------------------------
+net spindle-at-speed    spindle-at-speed.out         => spindle.0.at-speed 
+
+# Wenn Sollpositon gleich Istpositon dann aus near das bit in spindle schieben
+#----------------------------------------------------------------------------
+net spindle-pos-err     spindle-at-pos.in2 	      	 <= pid.s.error	
+net spindle-at-pos      spindle-at-pos.out           => 				
+net spindle-on0  	    spindle.0.on                 => spindle-active-delay.in
+net spindel-on1         spindle-active-delay.out     => or2.0.in0   => not.0.in 
+net spindel-on2         and2.0.in0                   <= not.0.out
+  
+# orient und pid aktivieren
+#--------------------------
+net orient-active       and2.0.out => or2.0.in1 => spindle-out-switch.sel 
+net orient-active       => pid.s.enable   => spindle-orient.enable 
+net spindle-enable      or2.0.out 	      => hm2_7i95.0.stepgen.02.enable 
+net spindle-enable      => hm2_7i95.0.ssr.00.out-01
+
+# motion gibt Signal an Encoder das beim naechsten Z Signal auf 0 gestellt werden soll
+#-------------------------------------------------------------------------------------
+net  spindle-sync     	spindle.0.index-enable  => hm2_7i95.0.encoder.00.index-enable 
+
+sets spindle-sync 	1 
+
+# Drehzahlsignal entweder vom motion oder orient
+#-------------------------------------------
+net out-switch-in0   spindle-out-switch.in0	     <= spindle-ramp.out  
+net out-switch-in1   spindle-out-switch.in1	     <= pid.s.output
+net out-switch-out   spindle-out-switch.out	     => hm2_7i95.0.stepgen.02.velocity-cmd
 
 #******************************
 # connect miscellaneous signals
@@ -479,21 +523,9 @@ net machine-is-on  => arduino.dled.24 => arduino.dled.23
 
 
 
-
-#loadrt mux2 count=1
-#addf mux2.0 servo-thread
-
-#net ADC_value arduino.aIn.0 => mux2.0.in0
-#net spindle-command motion.spindle-speed-out  => mux2.0.in1
-#net spindle-select halui.program.is-running => mux2.0.sel
-#net selected-spindle mux2.0.out => spindle-vel-cmd-rpm
-
-
-
-
 #Spindle Override
-#setp halui.spindle.0.override.direct-value true
-#setp halui.spindle.0.override.count-enable true
+setp halui.spindle.0.override.direct-value true
+setp halui.spindle.0.override.count-enable true
 setp halui.spindle.0.override.scale 0.01
 
 net SpindleOverride <= halui.spindle.0.override.counts <= arduino.lpoti.1.out

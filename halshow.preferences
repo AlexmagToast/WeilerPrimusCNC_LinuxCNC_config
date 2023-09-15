@@ -10,18 +10,9 @@ set ::watchlist {
     sig+spindle-ccw
     sig+spindle-cw
     sig+spindle-enable
-    sig+spindle-index-enable
-    sig+spindle-output
-    sig+spindle-revs
-    sig+spindle-vel-cmd-rpm
-    sig+spindle-vel-cmd-rpm-abs
-    sig+spindle-vel-cmd-rps
-    sig+spindle-vel-cmd-rps-abs
-    sig+spindle-vel-fb-rpm
     pin+hm2_7i95.0.ssr.00.out-01
     pin+motion.motion-enabled
     pin+motion.on-soft-limit
-    sig+spindle-vel-fb-rps
     pin+halui.spindle.0.brake-is-on
     pin+halui.spindle.0.brake-off
     pin+halui.spindle.0.brake-on
@@ -73,6 +64,7 @@ set ::watchlist {
     param+hm2_7i95.0.stepgen.02.steplen
     param+hm2_7i95.0.stepgen.02.stepspace
     param+hm2_7i95.0.stepgen.02.table-data-0
+    pin+hm2_7i95.0.ssr.00.invert-05
 }
 set ::workmode watchhal
 set ::watchInterval 100
