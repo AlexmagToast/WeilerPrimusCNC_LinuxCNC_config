@@ -1,8 +1,8 @@
 # Halshow settings
 # This file is generated automatically.
 wm geometry . 1001x959+889+6
-placeFrames 0.24974721941354905
-set ::ratio 0.24974721941354905
+placeFrames 0.2537917087967644
+set ::ratio 0.2537917087967644
 set ::old_w_leftf 160
 set ::watchlist {
     pin+hm2_7i95.0.encoder.00.velocity
@@ -11,6 +11,43 @@ set ::watchlist {
     pin+spindle.0.brake
     pin+spindle.0.reverse
     pin+spindle.0.forward
+    sig+spindle-vel-cmd-rps
+    sig+spindle-vel-fb-rps
+    pin+near.0.in1
+    pin+near.0.in2
+    pin+near.0.out
+    sig+spindle-vel-cmd-rpm-abs
+    sig+spindle-vel-cmd-rps-abs
+    sig+spindle-vel-fb-rpm
+    pin+hm2_7i95.0.encoder.01.count
+    pin+hm2_7i95.0.encoder.01.index-enable
+    pin+hm2_7i95.0.encoder.01.input-index
+    pin+modbus.SZGH.mon.A0
+    pin+modbus.SZGH.mon.A1
+    pin+modbus.SZGH.mon.Ac
+    pin+modbus.SZGH.mon.C
+    pin+modbus.SZGH.mon.Er0
+    pin+modbus.SZGH.mon.Er1
+    pin+modbus.SZGH.mon.Er2
+    pin+modbus.SZGH.mon.Er3
+    pin+modbus.SZGH.mon.Er4
+    pin+modbus.SZGH.mon.Er5
+    pin+modbus.SZGH.mon.F
+    pin+modbus.SZGH.mon.FE
+    pin+modbus.SZGH.mon.FI
+    pin+modbus.SZGH.mon.Fo
+    pin+modbus.SZGH.mon.Fr
+    pin+modbus.SZGH.mon.H
+    pin+modbus.SZGH.mon.L
+    pin+modbus.SZGH.mon.P
+    pin+modbus.SZGH.mon.RUN
+    pin+modbus.SZGH.mon.To
+    pin+modbus.SZGH.mon.U
+    pin+modbus.SZGH.mon.d1-d8
+    pin+modbus.SZGH.mon.dc
+    pin+modbus.SZGH.mon.nc
+    pin+modbus.SZGH.mon.o1-o4
+    pin+modbus.SZGH.mon.oP
 }
 set ::workmode watchhal
 set ::watchInterval 100
