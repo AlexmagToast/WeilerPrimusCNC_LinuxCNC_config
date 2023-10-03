@@ -1,0 +1,4 @@
+#!/bin/bash
+# file to turn on parport pin 14 to open the collet closer
+halcmd setp test
+exit 0

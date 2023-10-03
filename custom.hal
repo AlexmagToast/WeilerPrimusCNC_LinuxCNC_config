@@ -59,10 +59,5 @@ net Lubefill <= lubedude.LubeFill <= modbus.N4DIH32.21
 
 
 
-
-#  ---manual tool change signals---
-
-#net tool-change-request    <= iocontrol.0.tool-change
-#net tool-change-confirmed  => iocontrol.0.tool-changed
-#net tool-number            <= iocontrol.0.tool-prep-number
-
+#Oil Cooler
+net oil-hot     modbus.N4DIH32.19 => [HMOT](CARD0).gpio.043.out

@@ -29,7 +29,7 @@ loadusr modbus
 
 setp [HMOT](CARD0).gpio.041.is_output true #M1 Spindle
 setp [HMOT](CARD0).gpio.042.is_output true #M2 Öl schmierpumpe
-setp [HMOT](CARD0).gpio.043.is_output true #M3 
+setp [HMOT](CARD0).gpio.043.is_output true #M3 Hydraulik Kühler
 setp [HMOT](CARD0).gpio.044.is_output true #M4 KSS
 setp [HMOT](CARD0).gpio.045.is_output true #M5 Hydraulik Pumpe
 setp [HMOT](CARD0).gpio.046.is_output true #Mist Enable
@@ -173,7 +173,7 @@ setp [HMOT](CARD0).gpio.051.invert_output true #Z Alarm Reset
 #modbus.ND41H.17     NC Öldruck Filter Grau 
 #modbus.ND41H.18     NO Öldruck Filter Grau Wß
 #modbus.ND41H.19     Temp Schalter 
-#modbus.ND41H.20     Temp Schalter
+#modbus.ND41H.20     
 #modbus.ND41H.21     NC Bettbahnöl Füllstand
 #modbus.ND41H.22     
 #modbus.ND41H.23     
@@ -372,8 +372,8 @@ net spindle-brake              <=  spindle.0.brake
 net spindle-revs               =>  spindle.0.revs <= [HMOT](CARD0).encoder.00.position
 net spindle-at-speed           =>  spindle.0.at-speed 
 net spindle-vel-fb-rps         =>  spindle.0.speed-in
-#net spindle-index-enable      <=>  spindle.0.index-enable <=> [HMOT](CARD0).encoder.00.index-enable
 
+net Fault                      => spindle.0.inhibit #Hydraulik off inhibit Spindle
 net spindle-enable => hm2_7i95.0.ssr.00.out-01 #Put Servo in Speed mode
 #net spindle-enable => hm2_7i95.0.ssr.00.out-00 #Put Servo in Position mode
 
@@ -419,13 +419,11 @@ net jog-speed             halui.axis.jog-speed
 net MDI-mode              halui.mode.is-mdi
 
 #  ---coolant signals---
-
 net coolant-mist      <=  iocontrol.0.coolant-mist
 net coolant-flood     <=  iocontrol.0.coolant-flood
 
 net coolant-mist-on <= halui.mist.on <= arduino.din.35
 net coolant-flood-on <= halui.flood.on <= arduino.din.36
-
 
 net coolant-flood-off <= halui.flood.off <= arduino.din.37
 net coolant-flood-off => halui.mist.off
@@ -546,8 +544,6 @@ net tool-number            <= iocontrol.0.tool-prep-number => Sauter.toolnumber
 #  ---ignore tool prepare requests---
 net tool-prepare-loopback   iocontrol.0.tool-prepare      =>  iocontrol.0.tool-prepared
 
-
-
 #HMI LED's
 net turretpos1 <= [HMOT](CARD0).inmux.00.input-12
 net turretpos1 => arduino.dled.4 => Sauter.pos1
@@ -572,3 +568,4 @@ net ValveB <= Sauter.coilB => [HMOT](CARD0).ssr.00.out-03
 net Fault <= Sauter.fault => arduino.dled.22
 #c.newpin("reset", hal.HAL_BIT, hal.HAL_IN)
 #c.newpin("debug", hal.HAL_FLOAT, hal.HAL_OUT)
+
